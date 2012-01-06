@@ -42,6 +42,20 @@ class CoverageRunner(DjangoTestSuiteRunner):
     """
     Test runner which displays a code coverage report at the end of the run.
     """
+    
+    def build_suite(self, *args, **kwargs):
+    """
+    Build test suite with exlusion some apps.
+    """
+        suite = super(CoverageRunner, self).build_suite(*args, **kwargs)
+        if not args[0] and not getattr(settings, 'RUN_ALL_TESTS', False):
+            tests = []
+            for case in suite:
+                pkg = case.__class__.__module__.split('.')[0]
+                if pkg not in settings.COVERAGE_IGNORE_TESTS:
+                    tests.append(case)
+            suite._tests = tests
+        return suite
 
     def __new__(cls, *args, **kwargs):
         """

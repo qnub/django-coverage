@@ -86,3 +86,6 @@ COVERAGE_CUSTOM_REPORTS = getattr(settings, 'COVERAGE_CUSTOM_REPORTS', True)
 # This makes it possible to both generate HTML reports and see coverage
 # information on STDOUT.
 COVERAGE_USE_STDOUT = getattr(settings, 'COVERAGE_USE_STDOUT', COVERAGE_REPORT_HTML_OUTPUT_DIR is None)
+
+# Packages for test exlusion
+COVERAGE_IGNORE_TESTS = getattr(settings, 'COVERAGE_IGNORE_TESTS', [])
